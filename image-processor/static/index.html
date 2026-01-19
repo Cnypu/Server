@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Обработчик изображений</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Обработчик изображений</h1>
+            <p class="subtitle">Загрузите изображение для применения фильтров и редактирования</p>
+        </header>
+        
+        <!-- Загрузка -->
+        <section class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" accept="image/*">
+                <div class="upload-icon">📁</div>
+                <h2>Перетащите изображение сюда</h2>
+                <p>или нажмите для выбора файла</p>
+                <p class="file-info">Поддерживаются: JPG, PNG, GIF, BMP, WebP (до 20MB)</p>
+            </div>
+        </section>
+        
+        <!-- Превью -->
+        <section class="preview-container" id="previewContainer">
+            <h2>Предпросмотр</h2>
+            <div class="image-grid">
+                <div class="image-box">
+                    <h3>Оригинал</h3>
+                    <img id="originalImg" alt="Оригинал">
+                    <div class="image-info" id="originalInfo"></div>
+                </div>
+                <div class="image-box">
+                    <h3>Результат</h3>
+                    <img id="resultImg" alt="Результат">
+                    <div class="image-info" id="resultInfo"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Управление -->
+        <section class="controls-section" id="controlsSection">
+            <h2>Настройки обработки</h2>
+            
+            <div class="controls-grid">
+                <!-- Фильтры -->
+                <div class="control-group">
+                    <h3>🎨 Фильтры</h3>
+                    <div class="filters" id="filtersContainer">
+                        <!-- Фильтры загрузятся через JS -->
+                    </div>
+                </div>
+                
+                <!-- Операции -->
+                <div class="control-group">
+                    <h3>🔄 Операции</h3>
+                    <div class="operation">
+                        <label>Поворот: <span id="rotateValue">0°</span></label>
+                        <input type="range" id="rotateSlider" min="-180" max="180" value="0" class="slider">
+                        <div class="quick-buttons">
+                            <button class="small-btn" data-rotate="-90">↺ -90°</button>
+                            <button class="small-btn" data-rotate="90">↻ +90°</button>
+                            <button class="small-btn" data-rotate="180">🔄 180°</button>
+                        </div>
+                    </div>
+                    
+                    <div class="operation">
+                        <label>Отражение:</label>
+                        <div class="flip-buttons">
+                            <button class="small-btn active" data-flip="none">Нет</button>
+                            <button class="small-btn" data-flip="horizontal">↔ Гориз.</button>
+                            <button class="small-btn" data-flip="vertical">↕ Вертик.</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Размер -->
+                <div class="control-group">
+                    <h3>📏 Размер</h3>
+                    <div class="size-controls">
+                        <div class="size-input">
+                            <label>Ширина:</label>
+                            <input type="number" id="widthInput" min="10" max="4000" value="800">
+                            <span>px</span>
+                        </div>
+                        <div class="size-input">
+                            <label>Высота:</label>
+                            <input type="number" id="heightInput" min="10" max="4000" value="600">
+                            <span>px</span>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="keepAspect" checked>
+                        <label for="keepAspect">Сохранять пропорции</label>
+                    </div>
+                </div>
+                
+                <!-- Настройки -->
+                <div class="control-group">
+                    <h3>⚙️ Настройки</h3>
+                    <div class="settings">
+                        <div class="setting">
+                            <label>Формат:</label>
+                            <select id="formatSelect">
+                                <option value="jpg">JPEG</option>
+                                <option value="png">PNG</option>
+                            </select>
+                        </div>
+                        <div class="setting">
+                            <label>Качество: <span id="qualityValue">85%</span></label>
+                            <input type="range" id="qualitySlider" min="1" max="100" value="85" class="slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Загрузка -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Обрабатываю изображение...</p>
+        </div>
+        
+        <!-- Результат -->
+        <div class="result-container" id="resultContainer">
+            <div class="result-card">
+                <h3>✅ Обработка завершена!</h3>
+                <p>Изображение успешно обработано и готово к скачиванию</p>
+            </div>
+        </div>
+        
+        <!-- Кнопки действий -->
+        <div class="action-buttons">
+            <button class="btn primary-btn" id="processBtn" disabled>
+                ⚙️ Обработать изображение
+            </button>
+            <button class="btn secondary-btn" id="downloadBtn" disabled>
+                💾 Скачать результат
+            </button>
+            <button class="btn danger-btn" id="resetBtn">
+                🔄 Сбросить всё
+            </button>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
